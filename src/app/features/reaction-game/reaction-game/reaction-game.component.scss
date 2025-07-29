@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  gap: 4rem;
   min-height: 100vh;
 
   .grid {
@@ -11,10 +11,54 @@
     gap: 0.5rem;
     width: calc(10 * 4rem + 4.5rem);
   }
+
+  .score {
+    width: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .player {
+      font-size: 3rem;
+      font-weight: 600;
+    }
+
+    .user {
+      color: rgb(0, 130, 53);
+    }
+
+    .pc {
+      color: rgb(130, 0, 53);
+    }
+  }
 }
 
 .game-menu {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
-  padding: 2rem;
+  padding: 2rem 1rem;
+  font-size: 1.25rem;
+
+  button {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: rgb(230, 119, 16);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+  }
+
+  input {
+    padding: 0.4rem;
+    border: 1.5px solid #ced4da;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    outline: none;
+  }
 }

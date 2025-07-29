@@ -1,17 +1,29 @@
 <div class="wrapper">
-  <div class="game-menu">
-    <div class="timer"><input type="number" [(ngModel)]="timer" /></div>
-    <div class="actions">
-      <button (click)="startGame()">Start Game</button>
+  <div class="score">
+    <div class="player user">User</div>
+    <app-score [score]="successScore()"></app-score>
+  </div>
+
+  <div>
+    <div class="game-menu">
+      <div>Timer (ms)</div>
+      <div class="timer"><input type="number" [(ngModel)]="timer" /></div>
+      <div class="actions">
+        <button (click)="startGame()">Start Game</button>
+      </div>
+    </div>
+    <div class="grid">
+      @for (config of squareConfigs(); track config.id) {
+      <app-square
+        [id]="config.id"
+        [state]="config.state"
+        (click)="selectSquare(config.id)"
+      ></app-square>
+      }
     </div>
   </div>
-  <div class="grid">
-    @for (config of squareConfigs(); track config.id) {
-    <app-square
-      [id]="config.id"
-      [state]="config.state"
-      (click)="selectSquare(config.id)"
-    ></app-square>
-    }
+  <div class="score">
+    <div class="player pc">PC</div>
+    <app-score [score]="failScore()"></app-score>
   </div>
 </div>

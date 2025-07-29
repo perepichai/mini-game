@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, Signal, signal } from '@angular/core';
 import { ISquareConfig } from '../../features/reaction-game/interfaces/square.interface';
 import { State } from '../../features/reaction-game/enums/state.enum';
 import { interval, Subscription, takeWhile, tap } from 'rxjs';
@@ -44,6 +44,14 @@ export class GameService {
 
   getCurrentSquareId(): number {
     return this.currentSquareId();
+  }
+
+  getSuccessScore(): Signal<number> {
+    return this.successScore.asReadonly();
+  }
+
+  getFailScore(): Signal<number> {
+    return this.failScore.asReadonly();
   }
 
   startGame(timer: number): void {
