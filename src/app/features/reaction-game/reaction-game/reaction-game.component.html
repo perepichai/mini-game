@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <div class="game-menu">
+    <div class="timer"><input type="number" [(ngModel)]="timer" /></div>
+    <div class="actions">
+      <button (click)="startGame()">Start Game</button>
+    </div>
+  </div>
+  <div class="grid">
+    @for (config of squareConfigs(); track config.id) {
+    <app-square
+      [id]="config.id"
+      [state]="config.state"
+      (click)="selectSquare(config.id)"
+    ></app-square>
+    }
+  </div>
+</div>

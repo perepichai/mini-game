@@ -1,0 +1,22 @@
+.square {
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+
+  &.default {
+    background-color: rgb(0, 53, 200);
+  }
+
+  &.current {
+    background-color: rgb(200, 130, 0);
+  }
+
+  &.success {
+    background-color: rgb(0, 130, 53);
+  }
+
+  &.fail {
+    background-color: rgb(130, 0, 53);
+  }
+}
