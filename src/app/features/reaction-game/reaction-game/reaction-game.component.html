@@ -7,9 +7,13 @@
   <div>
     <div class="game-menu">
       <div>Timer (ms)</div>
-      <div class="timer"><input type="number" [(ngModel)]="timer" /></div>
+      <div class="timer">
+        <input type="number" [(ngModel)]="timer" [disabled]="isGameActive()" />
+      </div>
       <div class="actions">
-        <button (click)="startGame()">Start Game</button>
+        <button (click)="startGame()" [disabled]="isGameActive()">
+          Start Game
+        </button>
       </div>
     </div>
     <div class="grid">

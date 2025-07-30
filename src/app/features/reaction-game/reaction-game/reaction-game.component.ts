@@ -1,4 +1,11 @@
-import { Component, inject, model, OnInit, Signal, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  model,
+  OnInit,
+  Signal,
+  signal,
+} from '@angular/core';
 import { GameService } from '../../../core/services/game-service';
 import { SquareComponent } from '../square/square.component';
 import { FormsModule } from '@angular/forms';
@@ -15,8 +22,10 @@ import { ScoreComponent } from '../score/score.component';
 export class ReactionGameComponent implements OnInit {
   protected readonly squareConfigs = signal<ISquareConfig[]>([]);
   protected readonly timer = model<number>(gameConfig.defaultTimerMS);
+
   protected successScore!: Signal<number>;
   protected failScore!: Signal<number>;
+  protected isGameActive!: Signal<boolean>;
 
   private readonly gameService = inject(GameService);
 
@@ -25,6 +34,7 @@ export class ReactionGameComponent implements OnInit {
     this.squareConfigs.set(this.gameService.getSquareConfigs());
     this.successScore = this.gameService.getSuccessScore();
     this.failScore = this.gameService.getFailScore();
+    this.isGameActive = this.gameService.getGameStatus();
   }
 
   startGame(): void {

@@ -24,6 +24,8 @@ export class GameService {
       this.failScore() === this.maxScore
   );
 
+  private isGameStarted = signal<boolean>(false);
+
   private timer = signal<number>(gameConfig.defaultTimerMS);
 
   private timerSubscription: Subscription | undefined;
@@ -50,6 +52,10 @@ export class GameService {
     return this.currentSquareId();
   }
 
+  getGameStatus(): Signal<boolean> {
+    return computed(() => this.isGameStarted() && !this.isGameFinished());
+  }
+
   getSuccessScore(): Signal<number> {
     return this.successScore.asReadonly();
   }
@@ -71,6 +77,7 @@ export class GameService {
     this.timer.set(timer);
     this.initGame();
     this.startTimer();
+    this.isGameStarted.set(true);
   }
 
   selectSquare(id: number): void {
@@ -134,8 +141,8 @@ export class GameService {
   }
 
   private refreshSquaresState(): void {
-        this.squareConfigs.update((configs) => {
-      configs.forEach((config) => config.state = State.DEFAULT)
+    this.squareConfigs.update((configs) => {
+      configs.forEach((config) => (config.state = State.DEFAULT));
       return [...configs];
     });
   }
@@ -152,6 +159,8 @@ export class GameService {
 
     if (!this.isGameFinished()) {
       this.setCurrentSquare();
+    } else {
+      return
     }
 
     this.timerSubscription = interval(this.timer())
@@ -166,7 +175,10 @@ export class GameService {
           }
         }),
         finalize(() => {
-          this.showMessage();
+          if (this.isGameFinished()) {
+            this.isGameStarted.set(false);
+            this.showMessage();
+          }
         })
       )
       .subscribe();
@@ -186,11 +198,14 @@ export class GameService {
 
   private showMessage(): void {
     this.dialogRef.open(PopupModalComponent, {
-      data: { message: 'Game Finished!', score: { success: this.successScore(), fail: this.failScore() } },
+      data: {
+        message: 'Game Finished!',
+        score: { success: this.successScore(), fail: this.failScore() },
+      },
       width: '640px',
       height: '360px',
     });
 
-    this.dialogRef.afterAllClosed.subscribe(()=> this.initGame());
+    this.dialogRef.afterAllClosed.subscribe(() => this.initGame());
   }
 }
