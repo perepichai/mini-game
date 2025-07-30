@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { State } from '../enums/state.enum';
 
 @Component({
@@ -6,6 +6,7 @@ import { State } from '../enums/state.enum';
   imports: [],
   templateUrl: './square.component.html',
   styleUrl: './square.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SquareComponent {
   protected readonly State = State;

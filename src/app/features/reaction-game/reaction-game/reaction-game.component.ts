@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   model,
@@ -18,6 +19,7 @@ import { ScoreComponent } from '../score/score.component';
   imports: [FormsModule, SquareComponent, ScoreComponent],
   templateUrl: './reaction-game.component.html',
   styleUrl: './reaction-game.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReactionGameComponent implements OnInit {
   protected readonly squareConfigs = signal<ISquareConfig[]>([]);
