@@ -5,18 +5,18 @@
   border-radius: 0.25rem;
 
   &.default {
-    background-color: rgb(0, 53, 200);
+    background-color: var(--color-blue);
   }
 
   &.current {
-    background-color: rgb(200, 130, 0);
+    background-color: var(--color-orange);
   }
 
   &.success {
-    background-color: rgb(0, 130, 53);
+    background-color: var(--color-green);
   }
 
   &.fail {
-    background-color: rgb(130, 0, 53);
+    background-color: var(--color-red);
   }
 }

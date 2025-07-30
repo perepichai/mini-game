@@ -1,8 +1,10 @@
-import { computed, Injectable, Signal, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { ISquareConfig } from '../../features/reaction-game/interfaces/square.interface';
 import { State } from '../../features/reaction-game/enums/state.enum';
-import { interval, Subscription, takeWhile, tap } from 'rxjs';
+import { finalize, interval, Subscription, takeWhile, tap } from 'rxjs';
 import { gameConfig } from '../../shared/config/game.config';
+import { PopupModalComponent } from '../../shared/components/popup-modal/popup-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +27,8 @@ export class GameService {
   private timer = signal<number>(gameConfig.defaultTimerMS);
 
   private timerSubscription: Subscription | undefined;
+
+  private dialogRef = inject(MatDialog);
 
   initSquareConfigs(quantity: number): void {
     const squareArr: ISquareConfig[] = [];
@@ -54,14 +58,18 @@ export class GameService {
     return this.failScore.asReadonly();
   }
 
-  startGame(timer: number): void {
-    this.timer.set(timer);
-
+  initGame(): void {
     if (!this.squareConfigs().length) {
       this.initSquareConfigs(this.squareQuantity());
     }
 
     this.resetScore();
+    this.refreshSquaresState();
+  }
+
+  startGame(timer: number): void {
+    this.timer.set(timer);
+    this.initGame();
     this.startTimer();
   }
 
@@ -125,6 +133,13 @@ export class GameService {
     });
   }
 
+  private refreshSquaresState(): void {
+        this.squareConfigs.update((configs) => {
+      configs.forEach((config) => config.state = State.DEFAULT)
+      return [...configs];
+    });
+  }
+
   private setFailSquare(): void {
     this.squareConfigs.update((configs) => {
       configs[this.currentSquareId()].state = State.FAIL;
@@ -149,6 +164,9 @@ export class GameService {
           if (!this.isGameFinished()) {
             this.setCurrentSquare();
           }
+        }),
+        finalize(() => {
+          this.showMessage();
         })
       )
       .subscribe();
@@ -164,5 +182,15 @@ export class GameService {
 
   private addFail(): void {
     this.failScore.update((score) => score + 1);
+  }
+
+  private showMessage(): void {
+    this.dialogRef.open(PopupModalComponent, {
+      data: { message: 'Game Finished!', score: { success: this.successScore(), fail: this.failScore() } },
+      width: '640px',
+      height: '360px',
+    });
+
+    this.dialogRef.afterAllClosed.subscribe(()=> this.initGame());
   }
 }

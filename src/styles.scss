@@ -1,3 +1,10 @@
+:root {
+  --color-blue: rgb(0, 53, 200);
+  --color-orange: rgb(200, 130, 0);
+  --color-green: rgb(0, 130, 53);
+  --color-red: rgb(130, 0, 53);
+}
+
 *,
 *::before,
 *::after {
@@ -9,11 +16,27 @@
 html,
 body {
   height: 100%;
-  width: 100%;
-  font-family: inherit;
-  background: #fff;
-  color: inherit;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+input {
+  padding: 0.4rem;
+  border: 1.5px solid #ced4da;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  outline: none;
 }

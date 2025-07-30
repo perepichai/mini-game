@@ -43,22 +43,6 @@
   font-size: 1.25rem;
 
   button {
-    display: inline-block;
-    padding: 0.5rem 1.25rem;
-    background: rgb(230, 119, 16);
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.4rem;
-    cursor: pointer;
-  }
-
-  input {
-    padding: 0.4rem;
-    border: 1.5px solid #ced4da;
-    border-radius: 0.4rem;
-    font-size: 1rem;
-    outline: none;
+    background-color: var(--color-orange);
   }
 }

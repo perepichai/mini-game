@@ -1,0 +1,12 @@
+<h2 class="title" mat-dialog-title>{{ data.message }}</h2>
+<div class="result" mat-dialog-content >
+  <div class="user-score">
+    <div>User: {{ data.score.success }}</div>
+  </div>
+  <div class="user-score">
+    <div>PC: {{ data.score.fail }}</div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

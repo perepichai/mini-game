@@ -1,0 +1,24 @@
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  padding: 4rem 0;
+
+  .user-score {
+    font-size: 3rem;
+    font-weight: 500;
+  }
+}
+
+button {
+  background-color: var(--color-green);
+}
